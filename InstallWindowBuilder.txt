@@ -1,0 +1,6 @@
+Installing WindowBuilder (taken from http://www.eclipse.org/windowbuilder/download.php)
+1. In eclipse, go to Help -> Install New Software
+2. Enter "http://download.eclipse.org/windowbuilder/WB/release/R201506241200-1/4.5/" in the Work With text area. Hit the Enter key.
+3. There should now be 3 selectable items in the lower panel. Click Select All.
+4. Click the Next button at the bottom. Finish the installation of the plugins; Eclipse may ask you to restart.
+5. There should now be a Design tab at the bottom of the Window.java editor page. This is a simple WYSIWYG editor, drag-and-drop style. Play around with it!
