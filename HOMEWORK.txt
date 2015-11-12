@@ -1,2 +1,7 @@
--Make 3 scetches each
--Make your own commit, too! Add something to this text file! Send me your C++ solution!
+What we need:
+-Access to creating/editing/applying style: this will be done using Photoshopping Word
+	-Putting it in a good location
+	-Adding default style to startup screen
+-Creating style page
+	-Create expandable/collapsable tree to left of panel with all the "Format" options in it
+	-Figure out what works & doesnt't (following paragraph styel?!~?!?!?!?!??!), fix it
