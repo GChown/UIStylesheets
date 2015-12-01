@@ -47,6 +47,10 @@ public class Window {
 	private JToggleButton alignLeftButton;
 	private JToggleButton alignCentreButton;
 	private JToggleButton alignRightButton;
+	private JButton increaseLineSpacingButton;
+	private JButton decreaseLineSpacingButton;
+	private JButton increaseIndentButton;
+	private JButton decreaseIndentButton;
 	private JButton increaseParagraphSpacingButton;
 	private JButton decreaseParagraphSpacingButton;
 	
@@ -124,6 +128,10 @@ public class Window {
 		alignLeftButton = new JToggleButton(new ImageIcon("icons/Align Left.png"));
 		alignCentreButton = new JToggleButton(new ImageIcon("icons/Align Center.png"));
 		alignRightButton = new JToggleButton(new ImageIcon("icons/Align Right.png"));
+		increaseLineSpacingButton = new JButton(new ImageIcon("icons/Increase Line.png"));
+		decreaseLineSpacingButton = new JButton(new ImageIcon("icons/Decrease Line.png"));
+		increaseIndentButton = new JButton(new ImageIcon("icons/Increase Indent.png"));
+		decreaseIndentButton = new JButton(new ImageIcon("icons/Decrease Indent.png"));
 		increaseParagraphSpacingButton = new JButton(new ImageIcon("icons/Increase Spacing.png"));
 		decreaseParagraphSpacingButton = new JButton(new ImageIcon("icons/Decrease Spacing.png"));
 		
@@ -146,6 +154,10 @@ public class Window {
 		alignLeftButton.setPreferredSize(buttonDimension);
 		alignCentreButton.setPreferredSize(buttonDimension);
 		alignRightButton.setPreferredSize(buttonDimension);
+		increaseLineSpacingButton.setPreferredSize(buttonDimension);
+		decreaseLineSpacingButton.setPreferredSize(buttonDimension);
+		increaseIndentButton.setPreferredSize(buttonDimension);
+		decreaseIndentButton.setPreferredSize(buttonDimension);
 		increaseParagraphSpacingButton.setPreferredSize(buttonDimension);
 		decreaseParagraphSpacingButton.setPreferredSize(buttonDimension);
 		fontBox.setPreferredSize(new Dimension(240, 24));
@@ -162,6 +174,10 @@ public class Window {
 		alignLeftButton.setToolTipText("Align left");
 		alignCentreButton.setToolTipText("Align centre");
 		alignRightButton.setToolTipText("Align right");
+		increaseLineSpacingButton.setToolTipText("Increase spacing between lines");
+		decreaseLineSpacingButton.setToolTipText("Decrease spacing between lines");
+		increaseIndentButton.setToolTipText("Increase indent");
+		decreaseIndentButton.setToolTipText("Decrease indent");
 		increaseParagraphSpacingButton.setToolTipText("Increase spacing between paragraphs");
 		decreaseParagraphSpacingButton.setToolTipText("Decrease spacing between paragraphs");
 		
@@ -179,6 +195,12 @@ public class Window {
 		bottomToolBar.add(alignLeftButton);
 		bottomToolBar.add(alignCentreButton);
 		bottomToolBar.add(alignRightButton);
+		bottomToolBar.addSeparator();
+		bottomToolBar.add(increaseLineSpacingButton);
+		bottomToolBar.add(decreaseLineSpacingButton);
+		bottomToolBar.addSeparator();
+		bottomToolBar.add(increaseIndentButton);
+		bottomToolBar.add(decreaseIndentButton);
 		bottomToolBar.addSeparator();
 		bottomToolBar.add(increaseParagraphSpacingButton);
 		bottomToolBar.add(decreaseParagraphSpacingButton);
