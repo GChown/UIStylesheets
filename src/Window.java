@@ -55,13 +55,15 @@ public class Window {
 	private JButton decreaseParagraphSpacingButton;
 	
 	private JEditorPane editor;
-	private SpringLayout springLayout;
 	private JScrollPane editorScrollPane;
 	private String text;
 	private String font;
 	private String colour;
 	private HTMLEditorKit kit;
 	private StyleSheet styleSheet;
+	
+	private int lineSpacing;
+	private int indent;
 	/**
 	 * Don't worry about this stuff
 	 */
@@ -94,13 +96,9 @@ public class Window {
 		frame.setTitle("Stylesheet editor");
 		frame.setLocationRelativeTo(null);
 		frame.setBounds(100, 100, 450, 300);
-		// We're using SpringLayout - only add elements here, making it look
-		// good happens in layout().
-		springLayout = new SpringLayout();
 		colour = "blue";
 		kit = new HTMLEditorKit();
 		styleSheet = kit.getStyleSheet();
-		//TODO: fix scrolling, make everything not go off the side of the screen!
 		text = "<p>Hello there I'm going to try to make this as long as possible so it goes off the edge"
 				+ "of the wrong thing! hashasoifuhqwieufhjiqwuehjfiquhj</p>";
 		styleSheet.addRule("p {color:" + colour + "; font-family:\"" + font + "\";}");
@@ -237,19 +235,113 @@ public class Window {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		//add action listeners		
 		fontBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				String css = "<style> p { color: " + colourBox.getSelectedItem() 
-						+ "; font-family: \"" + fontBox.getSelectedItem() + "\";}</style>";
-			}});
-		fontBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				font = (String) fontBox.getSelectedItem();
-				styleSheet.addRule("p {color:" + colour + "; font-family:\"" + font + "\";}");
+				styleSheet.addRule("p {font-family:\"" + (String) fontBox.getSelectedItem() + "\";}");
 				updateCSS(styleSheet.toString(), editor.getText());
 			}
 		});
-//		layout();
+		
+		colourBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				styleSheet.addRule("p {color:" + (String) colourBox.getSelectedItem() + ";}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		sizeBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				styleSheet.addRule("p {font-size: " + sizeBox.getSelectedItem() + "pt;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		boldButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(boldButton.isSelected())
+					styleSheet.addRule("p {font-weight: bold;}");
+				else
+					styleSheet.addRule("p {font-weight: normal;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		italicButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(italicButton.isSelected())
+					styleSheet.addRule("p {font-style: italic;}");
+				else
+					styleSheet.addRule("p {font-style: normal;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		underlineButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(underlineButton.isSelected())
+					styleSheet.addRule("p {text-decoration: underline;}");
+				else
+					styleSheet.addRule("p {text-decoration: none;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		alignLeftButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				styleSheet.addRule("p {text-align: left;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		alignCentreButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				styleSheet.addRule("p {text-align: center;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		alignRightButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				styleSheet.addRule("p {text-align: right;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		lineSpacing = 100;
+		increaseLineSpacingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				lineSpacing += 10;
+				styleSheet.addRule("p {line-height: " + lineSpacing + "%;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		decreaseLineSpacingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				lineSpacing -= 10;
+				styleSheet.addRule("p {line-height: " + lineSpacing + "%;}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		indent = 0;
+		increaseIndentButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				indent += 25;
+				styleSheet.addRule("p {text-indent: " + indent + ";}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		decreaseIndentButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				indent -= 25;
+				styleSheet.addRule("p {text-indent: " + indent + ";}");
+				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
 	}
 
 	/**
@@ -262,16 +354,4 @@ public class Window {
 		styleSheet.addRule(css);
 		editor.setText(text);
 	}
-
-	/**
-	 * Makes things look good in the layout- anything not related to functionality.
-	 */
-//	private void layout() {
-//		frame.getContentPane().setLayout(springLayout);
-//		frame.getContentPane().add(editorScrollPane);
-//		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//        editorScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//		frame.getContentPane().add(fontSelector);
-//		springLayout.putConstraint(SpringLayout.NORTH, editorScrollPane, 5, SpringLayout.SOUTH, fontSelector);
-//	}
 }
