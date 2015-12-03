@@ -58,6 +58,7 @@ public class Window {
 	private SpringLayout springLayout;
 	private JScrollPane editorScrollPane;
 	private String text;
+	private int size;
 	private String font;
 	private String colour;
 	private HTMLEditorKit kit;
@@ -241,6 +242,14 @@ public class Window {
 			public void actionPerformed(ActionEvent evt) {
 				String css = "<style> p { color: " + colourBox.getSelectedItem() 
 						+ "; font-family: \"" + fontBox.getSelectedItem() + "\";}</style>";
+			}});
+
+		sizeBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				size = (int) sizeBox.getSelectedItem();
+				styleSheet.addRule("p {color:" + colour + "; font-family:\"" 
+			+ font + "\"; font-size: " + size + "px;}");
+				updateCSS(styleSheet.toString(), editor.getText());
 			}});
 		fontBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
