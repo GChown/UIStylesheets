@@ -240,7 +240,7 @@ public class Window {
 		editor.setContentType("text/html");
 		editor.setEditable(true);
 		
-		frame.setBounds(100, 100, subPanelWidth + 20, 460);
+		frame.setBounds(100, 100, subPanelWidth + 20, 440);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
