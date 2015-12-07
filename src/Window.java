@@ -13,19 +13,12 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SpringLayout;
-import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.*;
 
 public class Window {
 
@@ -57,10 +50,12 @@ public class Window {
 	private JEditorPane editor;
 	private JScrollPane editorScrollPane;
 	private String text;
-	private String font;
-	private String colour;
 	private HTMLEditorKit kit;
 	private StyleSheet styleSheet;
+	
+	private JPanel optionsPanel;
+	private JButton cancelButton;
+	private JButton addButton;
 	
 	private int lineSpacing;
 	private int indent;
@@ -93,15 +88,16 @@ public class Window {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Stylesheet editor");
+		frame.setTitle("Stylesheet Editor");
 		frame.setLocationRelativeTo(null);
 		frame.setBounds(100, 100, 450, 300);
-		colour = "blue";
 		kit = new HTMLEditorKit();
 		styleSheet = kit.getStyleSheet();
-		text = "<p>Hello there I'm going to try to make this as long as possible so it goes off the edge"
-				+ "of the wrong thing! hashasoifuhqwieufhjiqwuehjfiquhj</p>";
-		styleSheet.addRule("p {color:" + colour + "; font-family:\"" + font + "\";}");
+		text = "<p>Lorem ipsum dolor sit amet, qui aperiri abhorreant eu. Audiam repudiandae id vim. " 
+				+ "Vidit posse viris an sit. Periculis corrumpit cu mei, iriure scripta repudiandae vel te. "
+				+ "Vis fugit nusquam eleifend te, his an idque debet epicuri. Ea fierent legendos "
+				+ "definiebas pri, mea possit constituam no. Nonumy tritani at usu, et pri doctus hendrerit. "
+				+ "Sed clita causae ex. Ubique abhorreant quaerendum quo ex, impedit tibique cu ius.</p>";
 		editor = new JEditorPane();
 		editor.setEditable(true);
 		editor.setEditorKit(kit);
@@ -133,6 +129,10 @@ public class Window {
 		increaseParagraphSpacingButton = new JButton(new ImageIcon("icons/Increase Spacing.png"));
 		decreaseParagraphSpacingButton = new JButton(new ImageIcon("icons/Decrease Spacing.png"));
 		
+		optionsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		cancelButton = new JButton("Cancel");
+		addButton = new JButton("OK");
+		
 		editorScrollPane = new JScrollPane(editor);
 		
 		//set borders
@@ -161,6 +161,9 @@ public class Window {
 		fontBox.setPreferredSize(new Dimension(240, 24));
 		sizeBox.setPreferredSize(new Dimension(50, 24));
 		colourBox.setPreferredSize(new Dimension(80, 24));
+		optionsPanel.setPreferredSize(new Dimension(subPanelWidth, 40));
+		cancelButton.setPreferredSize(new Dimension(150, 25));
+		addButton.setPreferredSize(new Dimension(150, 25));
 		
 		//add tool tips
 		fontBox.setToolTipText("Font");
@@ -205,15 +208,21 @@ public class Window {
 		formatPanel.add(topToolBar);
 		formatPanel.add(bottomToolBar);
 		
+		optionsPanel.add(cancelButton);
+		optionsPanel.add(addButton);
+		
 		mainPanel.add(namePanel);
 		mainPanel.add(formatPanel);
 		mainPanel.add(editorScrollPane);
+		mainPanel.add(optionsPanel);
 		
 		//add panel to frame in absolute layout to avoid resize issues
 		frame.add(mainPanel);
-		mainPanel.setBounds(0, 0, subPanelWidth + 10, 400);
+		mainPanel.setBounds(0, 0, subPanelWidth + 20, 460);
 		
 		//set initial component properties
+		nameField.setText("Style1");
+		
 		ButtonGroup alignGroup = new ButtonGroup();
 		alignGroup.add(alignLeftButton);
 		alignGroup.add(alignCentreButton);
@@ -231,10 +240,13 @@ public class Window {
 		editor.setContentType("text/html");
 		editor.setEditable(true);
 		
-		frame.setBounds(100, 100, subPanelWidth + 10, 400);
+		frame.setBounds(100, 100, subPanelWidth + 20, 460);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		styleSheet.addRule("p {color:" + (String) colourBox.getSelectedItem() + 
+				"; font-family:\"" + (String) fontBox.getSelectedItem() + "\";}");
+		styleSheet.addRule("p {font-size: " + sizeBox.getSelectedItem() + "pt;}");
 		
 		//add action listeners		
 		fontBox.addActionListener(new ActionListener() {
@@ -340,6 +352,18 @@ public class Window {
 				indent -= 25;
 				styleSheet.addRule("p {text-indent: " + indent + ";}");
 				updateCSS(styleSheet.toString(), editor.getText());
+			}
+		});
+		
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.exit(0);
+			}
+		});
+		
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.exit(0);
 			}
 		});
 	}
