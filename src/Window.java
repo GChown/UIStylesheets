@@ -244,18 +244,18 @@ public class Window {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		styleSheet.addRule("p {color:" + (String) colourBox.getSelectedItem() + 
-				"; font-family:\"" + (String) fontBox.getSelectedItem() + "\";}");
+		
+		styleSheet.addRule("p {font-family:\"" + (String) fontBox.getSelectedItem() + "\";}");
+		styleSheet.addRule("p {color:" + (String) colourBox.getSelectedItem() + ";}");
 		styleSheet.addRule("p {font-size: " + sizeBox.getSelectedItem() + "pt;}");
+		updateCSS(styleSheet.toString(), editor.getText());
 		
 		//add action listeners		
 		fontBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				styleSheet.addRule("p {font-family:\"" + (String) fontBox.getSelectedItem() + "\";}");
-				updateCSS(styleSheet.toString(), editor.getText());
-			}
-		});
-		
+			}});
+
 		colourBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				styleSheet.addRule("p {color:" + (String) colourBox.getSelectedItem() + ";}");
